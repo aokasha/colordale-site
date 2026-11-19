@@ -17,7 +17,7 @@
   --green: #35944a;
   --green-deep: #2a7a3c;
   --purple: #8561cc;
-  --orange: #b55e1a;
+  --orange: #a85616;
   --card-shadow: 0 10px 30px rgba(120, 80, 30, 0.14);
   --radius: 28px;
 }
@@ -33,7 +33,10 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--green-deep); }
-a:focus-visible, .button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+/* The text color, so the ring shows on cream, on the sunny panels and in the dark (the blue was 2.4:1 on cream). */
+a:focus-visible, .button:focus-visible, .shots:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 8px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--paper); color: var(--ink); padding: 10px 16px; border-radius: 12px; font-weight: 800; z-index: 10; }
+.skip:focus { left: 8px; }
 h1, h2, h3 { line-height: 1.15; margin: 0; }
 p { margin: 0; }
 
@@ -171,6 +174,49 @@ footer a:hover { text-decoration: underline; }
 .page .muted { color: var(--muted); }
 .page .summary { background: #e9f6e6; border-radius: 18px; padding: 16px 20px; margin-top: 18px; }
 
+/* ---------- Free printable pages ---------- */
+.title { font-size: clamp(32px, 4.6vw, 54px); font-weight: 900; margin-top: 8px; max-width: 16em; }
+main > .wrap > .kicker { margin-top: 18px; }
+main > .wrap > .intro { margin-top: 14px; max-width: 38em; color: var(--muted); font-size: 19px; }
+.top nav a[aria-current="page"] { background: rgba(0, 0, 0, 0.07); }
+.sheets { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.sheet a {
+  display: flex; flex-direction: column; height: 100%; background: var(--paper); border-radius: 22px; padding: 12px 12px 14px;
+  box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink);
+}
+/* The pictures are black outlines on white paper, also in the dark appearance. */
+.sheet img { border-radius: 12px; background: #fff; border: 2px solid rgba(0, 0, 0, 0.08); }
+.sheet .name { font-weight: 900; font-size: 18px; margin-top: 12px; line-height: 1.2; }
+.sheet .go {
+  margin-top: auto; align-self: flex-start; background: #2a7a3c; color: #fff; font-weight: 800; font-size: 15px;
+  padding: 6px 16px; border-radius: 999px;
+}
+.sheet .name + .go { margin-top: 10px; }
+.sheet a:hover { transform: translateY(-3px); transition: transform 0.15s ease; }
+.tips { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; margin-top: 36px; }
+.tips > div { background: var(--paper); border-radius: var(--radius); padding: 26px; box-shadow: var(--card-shadow); }
+.tips h2 { font-size: 22px; font-weight: 900; }
+.tips ul { margin: 10px 0 0; padding-left: 20px; }
+.tips li { margin-top: 6px; }
+.tips p { margin-top: 10px; }
+.tips li, .tips p { color: var(--muted); font-size: 17px; }
+.print-teaser {
+  background: var(--paper); border-radius: 40px; padding: clamp(24px, 4vw, 44px); box-shadow: var(--card-shadow);
+  display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(20px, 4vw, 48px); align-items: center;
+}
+.print-teaser img { border-radius: 16px; background: #fff; border: 2px solid rgba(0, 0, 0, 0.08); transform: rotate(-3deg); box-shadow: 0 8px 20px rgba(120, 80, 30, 0.16); }
+.print-teaser h2 { margin-top: 8px; }
+@media (max-width: 900px) {
+  .sheets { grid-template-columns: repeat(3, 1fr); }
+  .tips, .print-teaser { grid-template-columns: 1fr; }
+  .print-teaser img { max-width: 360px; margin-inline: auto; }
+}
+@media (max-width: 600px) {
+  .sheets { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sheet .name { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .sheet a:hover { transform: none; transition: none; } }
+
 /* ---------- Smaller screens ---------- */
 @media (max-width: 900px) {
   .hero, .grownups { grid-template-columns: 1fr; }
@@ -196,6 +242,7 @@ footer a:hover { text-decoration: underline; }
     --orange: #ffb067; --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   }
   .top nav a:hover { background: rgba(255, 255, 255, 0.10); }
+  .top nav a[aria-current="page"] { background: rgba(255, 255, 255, 0.12); }
   .chip { box-shadow: none; }
   .page .summary { background: #24352a; }
   /* The one-line logo has white letters with dark outlines: it needs a light plate behind it. */
